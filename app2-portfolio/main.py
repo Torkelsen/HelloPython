@@ -9,7 +9,12 @@ with col1:
 
 with col2:
     st.title("Roger Torkelsen")
-    content = """
+    content_info = """
     This project is for learning Python!
     """
-    st.info(content)
+    st.info(content_info)
+
+content_description = """
+Below you can find some of the apps i have built in Python
+"""
+st.write(content_description)
