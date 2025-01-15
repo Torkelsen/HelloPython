@@ -2,6 +2,12 @@ import pandas
 import streamlit as st
 import pandas as pd
 
+def create_project_card(df_row):
+    st.header(df_row["title"])
+    st.write(df_row["description"])
+    st.image("images/" +row["image"])
+    st.write(f"[Source Code]({row['url']})")
+
 st.set_page_config(layout="wide")
 
 col1, col2 = st.columns(2)
@@ -21,15 +27,17 @@ Below you can find some of the apps i have built in Python
 """
 st.write(content_description)
 
-col3, col4 = st.columns(2)
+col3, empty_col, col4 = st.columns([1.5, 0.5, 1.5])
 
 df = pandas.read_csv("data.csv", delimiter=';')
 
+
+
 with col3:
     for index, row in df[:10].iterrows():
-        st.header(row["title"])
+        create_project_card(row)
 
 
 with col4:
     for index, row in df[10:].iterrows():
-        st.header(row["title"])
+        create_project_card(row)
