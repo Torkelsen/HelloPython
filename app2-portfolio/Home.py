@@ -1,7 +1,9 @@
 import pandas
 import streamlit as st
 import pandas as pd
+import sys
 
+print(sys.path)
 def create_project_card(df_row):
     st.header(df_row["title"])
     st.write(df_row["description"])
