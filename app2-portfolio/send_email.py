@@ -8,8 +8,6 @@ def send_email(message):
 
     username = "torkelsen.serviceacc@gmail.com"
     password = os.getenv("SERVICEACCOUNTGMAILPASSWORD")
-    print("pass")
-    print(password)
 
     context = ssl.create_default_context()
 
