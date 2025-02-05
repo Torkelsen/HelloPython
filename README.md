@@ -7,5 +7,5 @@ Pycharm: File - Settings - Project - Add local interpreter - choose path new-app
 Make sure correct venv is activated when jumping between apps: \
 python -c "import sys; print(sys.executable)" \
 cd correct-app \
-.venv\Scripts\activate
+.venv\Scripts\Activate
 
