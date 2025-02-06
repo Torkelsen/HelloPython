@@ -1,7 +1,8 @@
 import requests
 from email_service import send_email
+import os
 
-APIKEY = "be835079174d475d91290e3dac7f495f"
+APIKEY = os.getenv("NEWSAPIORGAPIKEY")
 TOPIC = "tesla"
 url = f"https://newsapi.org/v2/everything?q={TOPIC}&sortBy=publishedAt&apiKey={APIKEY}&language=en"
 
