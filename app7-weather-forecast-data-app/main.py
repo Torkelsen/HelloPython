@@ -16,13 +16,17 @@ st.subheader(f"{option} for the next {days} days in {place}")
 #    return  dates, temperatures
 
 if len(place) > 0:
-    data = get_data(place, days)
-    if option == "Temperature":
-        figure = px.line(x=[entry["date_time"] for entry in data],y=[entry["temperature"] for entry in data], labels={"x": "Date", "y": "Temperature (C)"})
-        st.plotly_chart(figure)
-    # Fix color bug in support_darkmode script
-    elif option == "Sky":
-        image_paths = []
-        for row in data:
-            image_paths.append(f"images/{row["weather_icon"]}.png")
-        st.image(image_paths, width=115)
+    try:
+        data = get_data(place, days)
+
+        if option == "Temperature":
+            figure = px.line(x=[entry["date_time"] for entry in data],y=[entry["temperature"] for entry in data], labels={"x": "Date", "y": "Temperature (C)"})
+            st.plotly_chart(figure)
+        # Fix color bug in support_darkmode script
+        elif option == "Sky":
+            image_paths = []
+            for row in data:
+                image_paths.append(f"images/{row["weather_icon"]}.png")
+            st.image(image_paths, width=115)
+    except IndexError:
+        st.info("I don't think this place actually exists!")
