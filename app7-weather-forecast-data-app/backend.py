@@ -1,6 +1,8 @@
+import pandas as pd
 import requests
 from typing import List, Dict, Any, Tuple
 import os
+from datetime import date, timedelta
 
 APIKEY = os.getenv("OPENWEATHERMAPAPIKEY")
 
@@ -12,7 +14,7 @@ def get_coordinates(city_name) -> Tuple[float, float]:
     return lat, lon
 
 
-def get_data(place: str, days: int, option: str) -> List[Dict[str, Any]]:
+def get_data(place: str, forecast_days: int) -> List[Dict[str, Any]]:
     lat, lon = get_coordinates(place)
     params = {
         "lat": lat,
@@ -36,7 +38,9 @@ def get_data(place: str, days: int, option: str) -> List[Dict[str, Any]]:
     if "list" not in data:
         raise ValueError("Unexpected response format: missing 'list' key")
 
-    # TODO: add date range filtering up to today + days to limit data returned to frontend
+    # Using Pandas for proper filtering
+    weather_df = pd.DataFrame(data['list'])
+    weather_df['dt_txt'] = pd.to_datetime(weather_df['dt_txt'])
 
 #    # List comprehension - nice for simple transformations
 #    weather_data = [
@@ -48,11 +52,12 @@ def get_data(place: str, days: int, option: str) -> List[Dict[str, Any]]:
 #        for item in data["list"]
 #    ]
 
+    final_date = date.today() + timedelta(days=forecast_days)
     # Process each forecast item, building a list of desired weather information.
     weather_data: List[Dict[str, Any]] = []
-    for item in data["list"]:
+    for _, item in weather_df[weather_df['dt_txt'].dt.date <= pd.to_datetime(final_date).date()].iterrows():
         try:
-            weather_icon = item["weather"][0]["icon"]
+            weather_icon = item["weather"][0]["main"]
             temperature = item["main"]["temp"]
             date_time = item["dt_txt"]
         except (KeyError, IndexError) as err:
@@ -65,8 +70,4 @@ def get_data(place: str, days: int, option: str) -> List[Dict[str, Any]]:
             "date_time": date_time
         })
 
-
     return weather_data
-
-
-get_data("Sveio", 1, "Sky")
