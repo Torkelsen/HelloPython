@@ -1,7 +1,7 @@
 import cv2
 import time
 
-video = cv2.VideoCapture(0) #1 for usb cam?
+video = cv2.VideoCapture(1) #0 for integrated laptop cam, 1 for usb
 time.sleep(1)
 
 first_frame = None
