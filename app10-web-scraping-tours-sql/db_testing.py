@@ -7,8 +7,6 @@ cursor.execute("SELECT * FROM Events")
 rows = cursor.fetchall()
 print(rows)
 
-new_rows = [('Cats', 'Cat City', '2088.10.17')]
-print(new_rows)
+new_rows = [('Dogs', 'Dog City', '2099.10.17')]
 cursor.executemany("INSERT INTO Events (Band, City, Date) VALUES (?,?,?)", new_rows)
 connection.commit()
-
