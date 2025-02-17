@@ -2,5 +2,9 @@
 .idea/
 *.pyc
 __pycache__/
-app8-book-analysis/.ipynb_checkpoints/Regex-checkpoint.ipynb
-app4-invoice-generation\PDFs\*
+app4-invoice-generation/PDFs/*
+*data.db
+*data.txt
+/app8-book-analysis/.ipynb_checkpoints/
+/app8-book-analysis/NLP.ipynb
+/app3-pdf-template/output.pdf
