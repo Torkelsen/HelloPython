@@ -24,3 +24,13 @@ https://docs.djangoproject.com/en/5.1/
 Models are defined in job_application/models.py \
 python manage.py makemigrations \
 python manage.py migrate
+
+## Send email
+mysite/settings.py needs config for smtp provider \
+django.core.mail provides high-level email support
+
+## Create admin interface
+python manage.py createsuperuser \
+"your_app_dir"/admin.py only needs 2 lines of code to implement admin for a given model: \
+from .models import Form \
+admin.site.register(Form)
